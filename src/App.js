@@ -1,28 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import SearchCep from './components/SearchCep'
+import {fetchAddress} from "./redux/reducers/address/action-creators";
+import AddressForm from "./components/AddressForm";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const App = ({ address, handleSubmit }) => (
+  <div className="app">
+    <SearchCep handleSubmit={handleSubmit} isFetching={address.isFetching}/>
+    {
+      address.status === 0 &&
+          ( <p className="app__not-found">Address not found</p> )
+    }
+    <AddressForm address={address} />
+  </div>
+);
 
-export default App;
+
+const mapStateToProps = state => ({
+  address: state.address
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleSubmit: (e) => {
+    e.preventDefault();
+    dispatch(fetchAddress(e.target.code.value));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

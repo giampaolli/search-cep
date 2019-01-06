@@ -1,0 +1,24 @@
+.search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 2;
+    margin-bottom: 5px;
+}
+
+.search-container__button {
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    background: #776fff;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 8;
+}
